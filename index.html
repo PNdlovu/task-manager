@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Task Management App</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div id="app" class="pushable">
+            <div class="ui sidebar inverted vertical menu visible fixed left">
+                <div class="ui logo item">
+                    <b><i class="icon tasks blue"></i>Task Manager</b>
+                </div>
+                <div class="item">
+                    <div class="ui message blue">
+                        Use this tool to manage your todos. Have fun!
+                    </div>
+                </div>
+            </div>
+            <div class="ui container pusher">
+                <div class="ui grid">
+                    <div class="six wide column">
+                        <div class="tasklist">
+                            <div class="ui header">
+                                <i class="icon play circle orange"></i>In Progress Tasks ({{ todoTasks.length }})
+                            </div>
+                            <task v-bind:task="task" v-for="task in todoTasks" />
+                        </div>
+                        <div class="completed" class="tasklist">
+                            <div class="ui header">
+                                <i class="icon check circle green"></i>Completed Tasks ({{ completedTasks.length }})
+                            </div>
+                            <task v-bind:task="task" v-for="task in completedTasks" />
+                        </div>
+                    </div>
+                    <div class="six wide column">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="app.js"></script>
+    </body>
+
+</html>
