@@ -62,7 +62,7 @@ var app = new Vue({
       }
     ],
     task: {},
-    message: 'Hello World!',
+    message: '',
     action: 'create'
   },
   computed: {
@@ -80,13 +80,16 @@ var app = new Vue({
     clear: function() {
       this.task = {};
       this.action = 'create';
+      this.message = '';
     },
     toggleDone: function(event, id) {
+      event.stopImmediatePropagation();
+      
       let task = this.tasks.find(item => item.id == id);
-
+      
       if(task) {
         task.completed = !task.completed;
-        console.log('task toggled');
+        this.message =`Task ${id} updated.`
       }
     },
     createTask: function(event) {
@@ -99,6 +102,7 @@ var app = new Vue({
       this.task.id = taskId;
       this.tasks.push(this.task);
       this.clear();
+      this.message =`Task ${taskId} created.`
     },
     editTask: function(event, id){
         this.action = 'edit';
@@ -119,10 +123,9 @@ var app = new Vue({
          task.name = this.task.name;
          task.description = this.task.description;
          task.completed = this.task.completed;
+         this.message =`Task ${id} updated.`
      }
     },
-    
-    
     deleteTask: function(event, id) {
       event.stopImmediatePropagation();
       
@@ -130,9 +133,8 @@ var app = new Vue({
       
       if(taskIndex > -1){
           this.$delete(this.tasks, taskIndex);
+          this.message =`Task ${id} deleted.`
       }
-      
-      console.log('task deleted');
     }
   }
 })
