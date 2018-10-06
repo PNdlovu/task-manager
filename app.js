@@ -71,10 +71,13 @@ var app = new Vue({
     },
     todoTasks: function() {
       return this.tasks.filter(item => item.completed == false);
+    },
+    nextId: function() {
+      return (this.tasks.sort(function(a,b){ return a.id - b.id; }))[this.tasks.legnth - 1].id + 1;
     }
   },
   methods: {
-    clear: function(){
+    clear: function() {
       this.task = {};
       this.action = 'create';
     },
@@ -85,6 +88,17 @@ var app = new Vue({
         task.completed = !task.completed;
         console.log('task toggled');
       }
+    },
+    createTask: function(event) {
+      if(!this.task.completed){
+        this.task.completed = false;
+      } else {
+        this.task.completed = true;
+      }
+      let taskId = this.nextId;
+      this.task.id = taskId;
+      this.tasks.push(this.task);
+      this.clear();
     },
     editTask: function(event, id){
         this.action = 'edit';
